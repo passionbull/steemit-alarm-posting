@@ -1,24 +1,35 @@
 from steem import Steem
+from steemfunc import Steemfunc
+from contextlib import suppress
 import time
+import telegram
 
-num_posts = 1
 period_sec = 1
-sort = 'created'
-tag = 'kr-dev'
+my_token = '12345'
+userId = []
+userId.append('12345')
+def run():
+    myBot = telegram.Bot(token=my_token)
+#    for user in userId:
+#        myBot.sendMessage(chat_id =user, text='Hi')
+
+    pre_permlink = ''
+    st = Steemfunc()
+    #post = st.get_latest_posts()
+    #st. print_post_link(post)
+    while True:
+        post = st.get_latest_posts()
+        #print(post['permlink'])
+        #print(post['author'])
+        url = st.get_post_link(post)
+        if post['permlink'] != pre_permlink:
+            text_1 = 'Hi, I got latest post on '+ post['tags'][0]
+            for user in userId:
+                myBot.sendMessage(chat_id =user, text=text_1)
+                myBot.sendMessage(chat_id =user, text=url)
+        pre_permlink = post['permlink']
+        time.sleep(period_sec)
 
 if __name__ == '__main__':
-	s = Steem()
-
-	pre_permlink = '';
-
-	while True:
-		posts = s.get_posts(num_posts,sort,tag)
-		post = posts[0] #get latest post
-		#print(post['permlink'])
-		#print(post['author'])
-		url = 'http://steemit.com/'+tag+'/@'+post['author']+'/'+post['permlink']
-		if post['permlink'] != pre_permlink:
-			print('I got latest post on '+ tag)
-			print(url)
-		pre_permlink = post['permlink']
-		time.sleep(period_sec)
+    with suppress(KeyboardInterrupt):
+        run()
