@@ -1,2 +1,5 @@
 /db.txt
 /__pycache__/steemfunc.cpython-36.pyc
+/db.yaml
+/__pycache__/telefunc.cpython-36.pyc
+/__pycache__/yamlfunc.cpython-36.pyc
