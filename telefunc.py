@@ -1,5 +1,10 @@
 #-*- coding:utf-8 -*-
 
+import os
+#import sys
+#sys.path.insert(0,'bb8')
+#import bb8
+
 import telegram
 from telegram.ext import Updater, CommandHandler
 from telegram.ext import MessageHandler, Filters
@@ -27,14 +32,18 @@ class TelegramFunc:
 
     def echo(self, bot, update):
         print(update.message.chat_id)
-        bot.send_message(chat_id=update.message.chat_id, text=update.message.text)
+        self.sendMessage(update.message.chat_id, update.message.text)
+        #bot.send_message(chat_id=update.message.chat_id, text=update.message.text)
 
     def sendMessage(self, _chat_id, _text):
         self.telegramBot.sendMessage(chat_id =_chat_id, text=_text)
+        if self.initBB == 1:
+            os.system('python bb8/BB8worker.py')
 
-    def __init__(self, telegramKey):
+    def __init__(self, telegramKey, initBB):
         self.telegramKey = telegramKey
         self.telegramBot = telegram.Bot(token=telegramKey)
+        self.initBB = initBB
 
         self.updater = Updater(token=telegramKey)
         self.dispatcher = self.updater.dispatcher

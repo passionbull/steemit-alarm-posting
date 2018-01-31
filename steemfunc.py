@@ -7,7 +7,7 @@ class Steemfunc:
         'https://steemd.minnowsupportproject.org', 
         'https://steemd.privex.io', 'https://steemd.steemit.com', 'https://rpc.steemliberator.com',
         'https://steemd.minnowsupportproject.org']
-        Nodes_1=['https://steemd.minnowsupportproject.org']
+        Nodes_1=['https://api.steemit.com']
 
 #        self.steemNode = Steem(Nodes)
         self.steemNode = Steem(Nodes_1)
@@ -25,7 +25,7 @@ class Steemfunc:
         posts = self.steemNode.get_blog(_user,0,_limit)
         for post in posts:
             if _user == post['comment']['author']:
-                url = 'http://steemit.com/'+post['comment']['category']+'/@'+post['comment']['author']+'/'+post['comment']['permlink']
+                url = 'https://busy.org/'+post['comment']['category']+'/@'+post['comment']['author']+'/'+post['comment']['permlink']
                 return url
 
     def get_latest_posts(self, _sort='created', _tag='kr-event', _period=1):
@@ -34,11 +34,11 @@ class Steemfunc:
         return post
 
     def print_post_link(self, _post):
-        url = 'http://steemit.com/'+_post['tags'][0]+'/@'+_post['author']+'/'+_post['permlink']
+        url = 'https://busy.org/'+_post['tags'][0]+'/@'+_post['author']+'/'+_post['permlink']
         print(url)
         
     def get_post_link(self, _post):
-        url = 'http://steemit.com/'+_post['tags'][0]+'/@'+_post['author']+'/'+_post['permlink']
+        url = 'https://busy.org/'+_post['tags'][0]+'/@'+_post['author']+'/'+_post['permlink']
         return url
 
 

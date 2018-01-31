@@ -1,0 +1,24 @@
+period_sec: 180
+telegramKey: 123456:sdfjlksjflkajsk
+init: 0
+init_bb8: 1 #this is init for controling my bb8 robot 
+user_0:
+    tele_id: '12312421'
+    id: ned
+    target_tag: my-tag
+    targetAuthorCnt: 5
+    targetAuthor_0: ned1
+    targetAuthor_1: ned2
+    targetAuthor_2: jay1
+    targetAuthor_3: jay2
+    targetAuthor_4: jay3
+user_1:
+    tele_id: '1231242122'
+    id: ted
+    target_tag: my-tag
+    targetAuthorCnt: 5
+    targetAuthor_0: ned1
+    targetAuthor_1: ned2
+    targetAuthor_2: jay1
+    targetAuthor_3: jay2
+    targetAuthor_4: jay3
