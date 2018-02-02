@@ -6,25 +6,39 @@ class Yamlfunc:
 		self.settings = yaml.load(setting_file,Loader=yaml.Loader)
 		self.period_sec = self.settings['period_sec']
 		self.telegramKey = self.settings['telegramKey']
-		self.user_0 = self.settings['user_0']
-		self.user_1 = self.settings['user_1']
-		self.init_count = self.settings['init']
+		self.isFirstLoopPass = self.settings['isFirstLoopPass']
 		self.init_bb8 = self.settings['init_bb8']
-	
-	def initUsers(self):
+		user_cnt = int(self.settings['user_cnt'])
+		self.userInfos = []
+		for x in range(0,user_cnt):
+			eval_one = 'self.userInfos.append(self.settings'+"['user_"+str(x)+"'])"
+			eval(eval_one)
+
+	def getUsers(self):
 		users = []
-		users.append(yamlServer.user_0['tele_id'])
-		users.append(yamlServer.user_1['tele_id'])
+		user_cnt = int(self.settings['user_cnt'])
+		for x in range(0,user_cnt):
+			users.append(self.userInfos[x]['tele_id'])
+			#eval_one = 'users.append(self.user_'+str(x)+"['tele_id'])"
+			#eval(eval_one)
+		print(users)
 		return users
 
 	def initTargetAuthors(self):
 		targetAuthor = []
-		targetAuthor.append(yamlServer.user_0['targetAuthor_0'])
-		targetAuthor.append(yamlServer.user_0['targetAuthor_1'])
-		targetAuthor.append(yamlServer.user_0['targetAuthor_2'])
-		targetAuthor.append(yamlServer.user_0['targetAuthor_3'])
-		targetAuthor.append(yamlServer.user_0['targetAuthor_4'])
+		for x in range(0,self.userInfos[0]['targetAuthorCnt']):
+			eval_one = 'targetAuthor.append(self.userInfos[0]'+"['targetAuthor_"+str(x)+"'])"
+			eval(eval_one)
+		print(targetAuthor)
 		return targetAuthor
+
+	def getTargetAuthors(self, user_id):
+		targetAuthor = []
+		for x in range(0,self.userInfos[user_id]['targetAuthorCnt']):
+			eval_one = 'targetAuthor.append(self.userInfos[user_id]'+"['targetAuthor_"+str(x)+"'])"
+			eval(eval_one)
+		print(targetAuthor)
+		return targetAuthor		
 
 		
 

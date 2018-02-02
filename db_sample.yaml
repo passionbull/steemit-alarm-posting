@@ -1,24 +1,25 @@
-period_sec: 180
-telegramKey: 123456:sdfjlksjflkajsk
-init: 0
-init_bb8: 1 #this is init for controling my bb8 robot 
+period_sec: 180 #update time
+telegramKey: 123456:sdflkjdakljsfdsfdajkl #telegram bot key
+isFirstLoopPass: 1 #first loop pass or not
+init_bb8: 0 #when alarm work, bb8 move and light
+user_cnt: 1 #the number of users
 user_0:
-    tele_id: '12312421'
-    id: ned
-    target_tag: my-tag
+    tele_id: '123456' # user telegeram id
+    id: jacobyu # id
+    target_tag: kr-dev # Tag that user want alarm
     targetAuthorCnt: 5
-    targetAuthor_0: ned1
-    targetAuthor_1: ned2
-    targetAuthor_2: jay1
-    targetAuthor_3: jay2
-    targetAuthor_4: jay3
+    targetAuthor_0: A
+    targetAuthor_1: B
+    targetAuthor_2: C
+    targetAuthor_3: D
+    targetAuthor_4: E
 user_1:
-    tele_id: '1231242122'
-    id: ted
-    target_tag: my-tag
+    tele_id: '455675'
+    id: test
+    target_tag: kr-event
     targetAuthorCnt: 5
-    targetAuthor_0: ned1
-    targetAuthor_1: ned2
-    targetAuthor_2: jay1
-    targetAuthor_3: jay2
-    targetAuthor_4: jay3
+    targetAuthor_0: A
+    targetAuthor_1: B
+    targetAuthor_2: C
+    targetAuthor_3: D
+    targetAuthor_4: E

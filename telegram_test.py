@@ -7,4 +7,4 @@ from yamlfunc import Yamlfunc
 
 yamlServer = Yamlfunc()
 myBot = TelegramFunc(telegramKey=yamlServer.telegramKey)
-myBot.sendMessage[yamlServer.user_0[tele_id],'안녕하세요']
+myBot.sendMessage[yamlServer.user_0[tele_id],'Hello']
