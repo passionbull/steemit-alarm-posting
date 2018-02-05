@@ -9,23 +9,24 @@ class TelegramFunc:
 
 
     def start(self, bot, update):
-        print(update.message.chat_id)
-        print(update.message.text)
-        bot.send_message(chat_id=update.message.chat_id, text='등록하시겠습니까?\nID를 입력해주세요 /id @your_id')
+        my_text = 'Your telegram ID is ' + str(update.message.chat_id)
+        print(my_text)
+        bot.send_message(chat_id=update.message.chat_id, text= my_text)
+        bot.send_message(chat_id=update.message.chat_id, text='Do you want to register?\nPlease enter ID\n/id @your_id\n\nPlease enter the desired tag and users.\n/tag kr-dev kr-event\n/user jacobyu morning')
 
     def setting_id(self, bot, update):
         print(update.message.chat_id)
         print(update.message.text)
-        bot.send_message(chat_id=update.message.chat_id, text='등록되었습니다.\n원하는 태그와 유저를 입력해주세요.\n/tag kr-dev kr-event\n/user jacobyu morning')
+        bot.send_message(chat_id=update.message.chat_id, text='Registered.\nPlease enter the desired tag and users.\n/tag kr-dev kr-event\n/user jacobyu morning')
         #insert ID to DB
     def setting_tag(self, bot, update):
         print(update.message.chat_id)
         print(update.message.text)
-        bot.send_message(chat_id=update.message.chat_id, text='tag가 등록되었습니다.\n')
+        bot.send_message(chat_id=update.message.chat_id, text='tag is registered.\n')
     def setting_users(self, bot, update):
         print(update.message.chat_id)
         print(update.message.text)
-        bot.send_message(chat_id=update.message.chat_id, text='user가 등록되었습니다.\n')
+        bot.send_message(chat_id=update.message.chat_id, text='user is registered.\n')
 
     def echo(self, bot, update):
         print(update.message.chat_id)

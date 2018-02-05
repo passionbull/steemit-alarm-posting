@@ -13,7 +13,8 @@ class User:
         for x in range(0,self.targetAuthorCnt):
             eval_one = 'self.targetAuthors.append(_user_info'+"['targetAuthor_"+str(x)+"'])"
             eval(eval_one)
-        print('My id is '+ self.id)
+        print('My ID is '+ self.id)
+        print('My tag is '+ self.target_tag)
         print('My target Authors are below')
         print(self.targetAuthors)
         print('')

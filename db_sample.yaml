@@ -1,25 +1,25 @@
-period_sec: 180 #update time
-telegramKey: 123456:sdflkjdakljsfdsfdajkl #telegram bot key
-isFirstLoopPass: 1 #first loop pass or not
-init_bb8: 0 #when alarm work, bb8 move and light
-user_cnt: 1 #the number of users
-user_0:
-    tele_id: '123456' # user telegeram id
-    id: jacobyu # id
-    target_tag: kr-dev # Tag that user want alarm
-    targetAuthorCnt: 5
-    targetAuthor_0: A
-    targetAuthor_1: B
-    targetAuthor_2: C
-    targetAuthor_3: D
-    targetAuthor_4: E
+period_sec: 180 # Time to check the latest posts
+telegramKey: 12345:asvsdda12312312ascsacasc # Telegram bot key
+isFirstLoopPass: 1 # Whether first loop pass or not
+init_bb8: 1 # Whether bb8 work or not
+user_cnt: 2 # The number of users
+user_0: # user_x (x is a number, starting with zero)
+    tele_id: '1234567' # User telegram id for receiving alarm
+    id: jacobyu
+    target_tag: life # Tag that user tracks
+    targetAuthorCnt: 5 # The number of target authors
+    targetAuthor_0: krexchange # targetAuthor_x (x is a number, starting with zero)
+    targetAuthor_1: ned
+    targetAuthor_2: busy.org
+    targetAuthor_3: utopian.io
+    targetAuthor_4: jacobyu
 user_1:
-    tele_id: '455675'
-    id: test
-    target_tag: kr-event
+    tele_id: '12341234'
+    id: greys
+    target_tag: kr
     targetAuthorCnt: 5
-    targetAuthor_0: A
-    targetAuthor_1: B
-    targetAuthor_2: C
-    targetAuthor_3: D
-    targetAuthor_4: E
+    targetAuthor_0: greys
+    targetAuthor_1: tradingideas
+    targetAuthor_2: jungs
+    targetAuthor_3: danihwang
+    targetAuthor_4: tumble
