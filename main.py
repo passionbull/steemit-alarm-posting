@@ -13,8 +13,11 @@ def run():
             monitoringSystem.alarmOnTargetAuthors(user)
         print('I am working..')
         time.sleep(monitoringSystem.period_sec)
+        monitoringSystem.updateUsersFromDB()
+        
         if monitoringSystem.isFirstLoopPass == 1:
             monitoringSystem.isFirstLoopPass = 0
+
 
 if __name__ == '__main__':
     with suppress(KeyboardInterrupt):

@@ -5,30 +5,58 @@ import os
 import telegram
 from telegram.ext import Updater, CommandHandler
 from telegram.ext import MessageHandler, Filters
+from func.dbfunc import DBfunc
+from user import User
+
 class TelegramFunc:
-
-
     def start(self, bot, update):
         my_text = 'Your telegram ID is ' + str(update.message.chat_id)
         print(my_text)
         bot.send_message(chat_id=update.message.chat_id, text= my_text)
-        bot.send_message(chat_id=update.message.chat_id, text='Do you want to register?\nPlease enter ID\n/id @your_id\n\nPlease enter the desired tag and users.\n/tag kr-dev kr-event\n/user jacobyu morning')
+        bot.send_message(chat_id=update.message.chat_id, text='Do you want to register?\nPlease enter ID\n/id @your_id\n\nPlease enter the desired tag and users.\n/tag kr-dev kr-event\n/user jacobyu morning\n/status give you your status.')
 
     def setting_id(self, bot, update):
-        bot.send_message(chat_id=update.message.chat_id, text='Registered.\nPlease enter the desired tag and users.\n/tag kr-dev kr-event\n/user jacobyu morning')
-        #insert ID to DB
-        print(update.message.chat_id)
-        print(update.message.text)
-        user_name = update.message.text.split(' ')
+        # insert ID to DB
+        user_name = str(update.message.text.split(' ')[1])
+        tele_id = str(update.message.chat_id)
+
+        isSuccess = self.dbconn.set_user(tele_id, user_name)
+        if isSuccess == 0:
+            print('update user')
+            self.dbconn.update_user(tele_id, user_name)
+            bot.send_message(chat_id=update.message.chat_id, text='ID is updated.\nPlease enter the desired tag and users.\n/tag kr-dev kr-event\n/user jacobyu morning')
+        elif isSuccess == 1:
+            print('set user')
+            bot.send_message(chat_id=update.message.chat_id, text='ID is registered.\nPlease enter the desired tag and users.\n/tag kr-dev kr-event\n/user jacobyu morning')
+            pass
 
     def setting_tag(self, bot, update):
-        print(update.message.chat_id)
-        print(update.message.text)
-        bot.send_message(chat_id=update.message.chat_id, text='tag is registered.\n')
+        tele_id = str(update.message.chat_id)
+        message_list = update.message.text.split(' ')
+        tags = ['NULL', 'NULL', 'NULL']
+        for x in range(0,len(message_list)-1):
+            tags[x] = message_list[x+1]
+
+        self.dbconn.update_tags(tele_id, tags)
+        bot.send_message(chat_id=update.message.chat_id, text='target tags are set.\n')
+
     def setting_users(self, bot, update):
-        print(update.message.chat_id)
-        print(update.message.text)
-        bot.send_message(chat_id=update.message.chat_id, text='user is registered.\n')
+        tele_id = str(update.message.chat_id)
+        message_list = update.message.text.split(' ')
+        target_users = ['NULL', 'NULL', 'NULL', 'NULL', 'NULL']
+        for x in range(0,len(message_list)-1):
+            target_users[x] = message_list[x+1]
+
+        self.dbconn.update_users(tele_id, target_users)
+        bot.send_message(chat_id=update.message.chat_id, text='target users are set.\n')
+
+    def get_status(self, bot, update):
+        tele_id = str(update.message.chat_id)
+        status = self.dbconn.get_status()
+        user_1 = User(status[0], 1)
+        bot.send_message(chat_id=update.message.chat_id, text='Your ID is '+ user_1.id)
+        bot.send_message(chat_id=update.message.chat_id, text='Your tag is '+ user_1.target_tag)
+        bot.send_message(chat_id=update.message.chat_id, text= 'Your users are ' + ", ".join(user_1.targetAuthors))
 
     def echo(self, bot, update):
         print(update.message.chat_id)
@@ -40,23 +68,27 @@ class TelegramFunc:
         if self.initBB == 1:
             os.system('python bb8/BB8worker.py')
 
-    def __init__(self, telegramKey, initBB):
+    def __init__(self, telegramKey, initBB, dbconn):
         self.telegramKey = telegramKey
         self.telegramBot = telegram.Bot(token=telegramKey)
         self.initBB = initBB
-
+        self.dbconn = dbconn
+        #self.dbconn.get_status()
+        
         self.updater = Updater(token=telegramKey)
         self.dispatcher = self.updater.dispatcher
         self.start_handler = CommandHandler('start', self.start)
         self.service_handler = CommandHandler('id', self.setting_id)
         self.tag_handler = CommandHandler('tag', self.setting_tag)
         self.users_handler = CommandHandler('user', self.setting_users)
+        self.status_handler = CommandHandler('status', self.get_status)
         self.echo_handler = MessageHandler(Filters.text, self.echo)
         
         self.dispatcher.add_handler(self.start_handler)
         self.dispatcher.add_handler(self.service_handler)
         self.dispatcher.add_handler(self.tag_handler)
         self.dispatcher.add_handler(self.users_handler)
+        self.dispatcher.add_handler(self.status_handler)
         self.dispatcher.add_handler(self.echo_handler)
         self.updater.start_polling()
         #self.updater.idle()

@@ -1,6 +1,8 @@
 from func.yamlfunc import Yamlfunc
 from func.steemfunc import Steemfunc
 from func.telefunc import TelegramFunc
+from func.dbfunc import DBfunc
+
 from user import User
 import time
 import telegram
@@ -12,18 +14,45 @@ class MonitoringSystem:
         #Start Program
         print('Yaml setting')
         yamlServer = Yamlfunc() #read db.yaml and load UserInfos
+
+        print('MySQL setting')
+        self.dbConnect = DBfunc()        
+
         print('Telegram setting')
-        self.myBot = TelegramFunc(telegramKey=yamlServer.telegramKey, initBB=yamlServer.init_bb8) #telegram function load
+        self.myBot = TelegramFunc(telegramKey=yamlServer.telegramKey, initBB=yamlServer.init_bb8,
+        dbconn = self.dbConnect) #telegram function load
         print('Steen setting')
         self.steemFunction = Steemfunc() #steem function load
-        self.setUsers(yamlServer.userInfos)
+        
+        if yamlServer.settings['isUseMySQL'] == 0:
+            self.setUsers(yamlServer.userInfos)
+        else :
+            self.setUsersFromDB()
+        
         self.isFirstLoopPass = yamlServer.isFirstLoopPass # when program start, decide that loop passes or not
         self.period_sec = yamlServer.period_sec
 
     def setUsers(self, _userInfos):
+        print("set users from yaml")
         for user_info in _userInfos:
             user = User(user_info)
             self.Users.append(user)
+
+    def setUsersFromDB(self):
+        print("set users from DB")
+        status = self.dbConnect.get_status()
+        self.Users = []
+        for user_db in status:
+            user = User(user_db, 1)
+            self.Users.append(user)
+
+    def updateUsersFromDB(self):
+        print("update users from DB")
+        status = self.dbConnect.get_status()
+        for user in self.Users:
+            for user_db in status:
+                if user.tele_id == user_db[0]:
+                    user.setData(user_db)
     
     def alarmOnTag(self, _user):
         try:

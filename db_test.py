@@ -3,9 +3,8 @@ import os, errno
 import sys
 from func.yamlfunc import Yamlfunc
 import pymysql.cursors
-yaml = Yamlfunc()
-yaml.settings['host_MySQL']
 
+yaml = Yamlfunc()
 conn = pymysql.connect(host=yaml.settings['host_MySQL'],
         user=yaml.settings['id_MySQL'],
         password=yaml.settings['pw_MySQL'],
@@ -47,6 +46,6 @@ def updateData(tele_id, name):
 
 
 getData()
-insertData('1234568', 'jjjj')
+insertData('12345678', 'test_id')
 conn.close()
 

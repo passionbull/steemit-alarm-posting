@@ -2,10 +2,15 @@ period_sec: 180 # Time to check the latest posts
 telegramKey: 12345:asvsdda12312312ascsacasc # Telegram bot key
 isFirstLoopPass: 1 # Whether first loop pass or not
 init_bb8: 1 # Whether bb8 work or not
+host_MySQL: '127.0.0.1' # host of your mysql
+id_MySQL: 'test' # id of your mysql
+pw_MySQL: 'test1234' # pw of your mysql
+db_MySQL: 'steem_alarm_bot' # # db of your mysql
+
 user_cnt: 2 # The number of users
 user_0: # user_x (x is a number, starting with zero)
     tele_id: '1234567' # User telegram id for receiving alarm
-    id: jacobyu
+    id: test1
     target_tag: life # Tag that user tracks
     targetAuthorCnt: 5 # The number of target authors
     targetAuthor_0: krexchange # targetAuthor_x (x is a number, starting with zero)
@@ -15,11 +20,11 @@ user_0: # user_x (x is a number, starting with zero)
     targetAuthor_4: jacobyu
 user_1:
     tele_id: '12341234'
-    id: greys
+    id: test2
     target_tag: kr
     targetAuthorCnt: 5
-    targetAuthor_0: greys
-    targetAuthor_1: tradingideas
-    targetAuthor_2: jungs
-    targetAuthor_3: danihwang
-    targetAuthor_4: tumble
+    targetAuthor_0: test1
+    targetAuthor_1: test2
+    targetAuthor_2: test3
+    targetAuthor_3: test4
+    targetAuthor_4: test5
