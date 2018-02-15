@@ -1,6 +1,6 @@
-from yamlfunc import Yamlfunc
-from steemfunc import Steemfunc
-from telefunc import TelegramFunc
+from func.yamlfunc import Yamlfunc
+from func.steemfunc import Steemfunc
+from func.telefunc import TelegramFunc
 from user import User
 import time
 import telegram

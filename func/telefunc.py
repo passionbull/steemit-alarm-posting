@@ -15,10 +15,12 @@ class TelegramFunc:
         bot.send_message(chat_id=update.message.chat_id, text='Do you want to register?\nPlease enter ID\n/id @your_id\n\nPlease enter the desired tag and users.\n/tag kr-dev kr-event\n/user jacobyu morning')
 
     def setting_id(self, bot, update):
-        print(update.message.chat_id)
-        print(update.message.text)
         bot.send_message(chat_id=update.message.chat_id, text='Registered.\nPlease enter the desired tag and users.\n/tag kr-dev kr-event\n/user jacobyu morning')
         #insert ID to DB
+        print(update.message.chat_id)
+        print(update.message.text)
+        user_name = update.message.text.split(' ')
+
     def setting_tag(self, bot, update):
         print(update.message.chat_id)
         print(update.message.text)
