@@ -1,12 +1,13 @@
 period_sec: 180 # Time to check the latest posts
 telegramKey: 12345:asvsdda12312312ascsacasc # Telegram bot key
 isFirstLoopPass: 1 # Whether first loop pass or not
-init_bb8: 1 # Whether bb8 work or not
+isUseMySQL: 1 # Whether you use MySQL or yaml
 host_MySQL: '127.0.0.1' # host of your mysql
 id_MySQL: 'test' # id of your mysql
 pw_MySQL: 'test1234' # pw of your mysql
 db_MySQL: 'steem_alarm_bot' # # db of your mysql
 
+init_bb8: 1 # Whether bb8 work or not
 user_cnt: 2 # The number of users
 user_0: # user_x (x is a number, starting with zero)
     tele_id: '1234567' # User telegram id for receiving alarm
