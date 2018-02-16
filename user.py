@@ -37,10 +37,27 @@ class User:
             print(self.targetAuthors)
             print('')
 
+    def setTargetUsers(self, targetUsers):
+        self.targetAuthorCnt = 0
+        for x in range(0,5):
+            if targetUsers[x] != 'NULL':
+                self.targetAuthorCnt = self.targetAuthorCnt +1
+        self.targetAuthors = []
+        #self.pre_tag = None
+        #self.pre_target = ['','','','','','','','','','','']
+        for x in range(0,self.targetAuthorCnt):
+            if targetUsers[x] != 'NULL':
+                self.targetAuthors.append(targetUsers[x])
+
+    def setTargetTags(self, target_tag):
+        if target_tag != 'NULL':
+            self.target_tag = target_tag                                
+
     def setData(self, _user_info):
             self.id = _user_info[1]
             self.tele_id = _user_info[0]
-            self.target_tag = _user_info[2]
+            if _user_info[2] != 'NULL':
+                self.target_tag = _user_info[2]
             self.targetAuthorCnt = 0
             for x in range(0,5):
                 if _user_info[5+x] != 'NULL':
@@ -49,13 +66,21 @@ class User:
             #self.pre_tag = None
             #self.pre_target = ['','','','','','','','','','','']
             for x in range(0,self.targetAuthorCnt):
-                self.targetAuthors.append(_user_info[5+x])
+                if _user_info[5+x] != 'NULL':
+                    self.targetAuthors.append(_user_info[5+x])
             print('ID is '+ self.id)
             print('tag is '+ self.target_tag)
             print('target Authors are below')
             print(self.targetAuthors)
             print('')
 
+    def printInfo(self):
+            print('My ID is '+ self.id)
+            print('My tag is '+ self.target_tag)
+            print('My target Authors are below')
+            print(self.targetAuthors)
+            print('')
+            
 
     # def __init__(self, _user_db, nn):
         # self.id = _user_db[1]

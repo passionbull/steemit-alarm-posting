@@ -37,6 +37,7 @@ class TelegramFunc:
         for x in range(0,len(message_list)-1):
             tags[x] = message_list[x+1]
 
+        #self.update_target_tags(tele_id, tags)
         self.dbconn.update_tags(tele_id, tags)
         bot.send_message(chat_id=update.message.chat_id, text='target tags are set.\n')
 
@@ -47,6 +48,7 @@ class TelegramFunc:
         for x in range(0,len(message_list)-1):
             target_users[x] = message_list[x+1]
 
+        #self.update_target_users(tele_id, target_users)
         self.dbconn.update_users(tele_id, target_users)
         bot.send_message(chat_id=update.message.chat_id, text='target users are set.\n')
 
@@ -58,6 +60,18 @@ class TelegramFunc:
         bot.send_message(chat_id=update.message.chat_id, text='Your tag is '+ user_1.target_tag)
         bot.send_message(chat_id=update.message.chat_id, text= 'Your users are ' + ", ".join(user_1.targetAuthors))
 
+    def update_target_users(self, tele_id, target_users):
+        for user in self.users:
+            if user.id == tele_id:
+                print("updated users")
+                user.setTargetUsers(target_users)
+    
+    def update_target_tags(self, tele_id, target_tag):
+        for user in self.users:
+            if user.id == tele_id:
+                print("updated tags")
+                user.setTargetTags(target_tag[0])
+
     def echo(self, bot, update):
         print(update.message.chat_id)
         self.sendMessage(update.message.chat_id, update.message.text)
@@ -68,11 +82,12 @@ class TelegramFunc:
         if self.initBB == 1:
             os.system('python bb8/BB8worker.py')
 
-    def __init__(self, telegramKey, initBB, dbconn):
+    def __init__(self, telegramKey, initBB, dbconn, users):
         self.telegramKey = telegramKey
         self.telegramBot = telegram.Bot(token=telegramKey)
         self.initBB = initBB
         self.dbconn = dbconn
+        self.users = users
         #self.dbconn.get_status()
         
         self.updater = Updater(token=telegramKey)

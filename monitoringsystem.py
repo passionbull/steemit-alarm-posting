@@ -20,11 +20,12 @@ class MonitoringSystem:
 
         print('Telegram setting')
         self.myBot = TelegramFunc(telegramKey=yamlServer.telegramKey, initBB=yamlServer.init_bb8,
-        dbconn = self.dbConnect) #telegram function load
+        dbconn = self.dbConnect, users = self.Users ) #telegram function load
         print('Steen setting')
         self.steemFunction = Steemfunc() #steem function load
         
-        if yamlServer.settings['isUseMySQL'] == 0:
+        self.isUseMySQL = yamlServer.settings['isUseMySQL']
+        if self.isUseMySQL == 0:
             self.setUsers(yamlServer.userInfos)
         else :
             self.setUsersFromDB()
@@ -46,12 +47,17 @@ class MonitoringSystem:
             user = User(user_db, 1)
             self.Users.append(user)
 
+    def updateUsersFromtelegram(self):
+        pass
+
     def updateUsersFromDB(self):
+        if self.isUseMySQL == 0:
+            return 0
         print("update users from DB")
         status = self.dbConnect.get_status()
         for user in self.Users:
             for user_db in status:
-                if user.tele_id == user_db[0]:
+                if user.tele_id == user_db[0]: # tele_id is same?
                     user.setData(user_db)
     
     def alarmOnTag(self, _user):

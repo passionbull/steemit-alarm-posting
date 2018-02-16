@@ -11,10 +11,11 @@ def run():
         for user in monitoringSystem.Users:
             monitoringSystem.alarmOnTag(user)
             monitoringSystem.alarmOnTargetAuthors(user)
+            user.printInfo()
         print('I am working..')
         time.sleep(monitoringSystem.period_sec)
-        monitoringSystem.updateUsersFromDB()
         
+        monitoringSystem.updateUsersFromDB()
         if monitoringSystem.isFirstLoopPass == 1:
             monitoringSystem.isFirstLoopPass = 0
 
